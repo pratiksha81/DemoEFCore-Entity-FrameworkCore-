@@ -4,6 +4,9 @@ using Infrastructure.Data;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;  // Add this using directive
 using MediatR;
+using FluentValidation.AspNetCore;
+using Application.Validators;
+using FluentValidation.AspNetCore;
 namespace DemoEFCore
 {
     public class Program
@@ -24,7 +27,9 @@ namespace DemoEFCore
             builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 
-
+            // Add services to the container.
+            builder.Services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(CreateTeacherDTOValidator).Assembly));
 
 
             //mediatr
