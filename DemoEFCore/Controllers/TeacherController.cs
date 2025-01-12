@@ -10,14 +10,14 @@ namespace DemoEFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TeacherController : ControllerBase
+    public class TeacherController : BaseApiController
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger<TeacherController> _logger; // Logger declaration
+        //private readonly IMediator _mediator;
+       private readonly ILogger<TeacherController> _logger; // Logger declaration
 
         public TeacherController(IMediator mediator, ILogger<TeacherController> logger)
         {
-            _mediator = mediator;
+          //  _mediator = mediator;
             _logger = logger;
         }
 
@@ -26,7 +26,7 @@ namespace DemoEFCore.Controllers
         public async Task<IActionResult> AddTeacherAsync([FromBody] CreateTeacherDTO insert)
         {
             _logger.LogInformation("Received request to add a new teacher: {InsertData}", insert);
-            var id = await _mediator.Send(new AddTeacherCommand(insert));
+            var id = await Mediator.Send(new AddTeacherCommand(insert));
             _logger.LogInformation("Teacher added successfully with ID: {Id}", id);
             return Ok(id);
         }
@@ -36,7 +36,7 @@ namespace DemoEFCore.Controllers
         public async Task<IActionResult> GetAllTeacherAsync()
         {
             _logger.LogInformation("Received request to retrieve all teachers");
-            var profiles = await _mediator.Send(new GetAllTeachersQuery());
+            var profiles = await Mediator.Send(new GetAllTeachersQuery());
             _logger.LogInformation("Successfully retrieved {Count} teacher profiles", profiles?.Count());
             return Ok(profiles);
         }
@@ -46,7 +46,7 @@ namespace DemoEFCore.Controllers
         public async Task<IActionResult> GetTeacherByIdAsync(int teacherId)
         {
             _logger.LogInformation("Received request to retrieve teacher with ID: {TeacherId}", teacherId);
-            var getById = await _mediator.Send(new GetTeacherByIdQuery(teacherId));
+            var getById = await Mediator.Send(new GetTeacherByIdQuery(teacherId));
             if (getById != null)
             {
                 _logger.LogInformation("Successfully retrieved teacher with ID: {TeacherId}", teacherId);
