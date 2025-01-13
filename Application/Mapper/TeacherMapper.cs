@@ -40,5 +40,19 @@ namespace Application.Mappers
 
 
         }
+
+        // Convert UpdateTeacherDTO to Teacher (for updating)
+        public static Teacher ToEntity(this UpdateTeacherDTO teacherDTO, Teacher existingTeacher)
+        {
+            existingTeacher.Name = teacherDTO.Name ?? existingTeacher.Name;
+            existingTeacher.Qualification = teacherDTO.Qualification ?? existingTeacher.Qualification;
+            existingTeacher.Experience = teacherDTO.Experience ?? existingTeacher.Experience;
+            existingTeacher.Email = teacherDTO.Email ?? existingTeacher.Email;
+            existingTeacher.DoB = teacherDTO.DoB ?? existingTeacher.DoB;
+            existingTeacher.Gender = teacherDTO.Gender ?? existingTeacher.Gender;
+            existingTeacher.PhoneNo = teacherDTO.PhoneNo ?? existingTeacher.PhoneNo;
+
+            return existingTeacher;
+        }
     }
 }

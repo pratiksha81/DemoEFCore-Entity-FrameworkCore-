@@ -17,5 +17,11 @@ namespace Application.Services
 
         // Get all teachers
         Task<IEnumerable<Teacher>> GetAllTeacherAsync();
+
+        // Update an existing teacher
+        Task<bool> UpdateTeacherAsync(Teacher teacher);
+
+        // Delete a teacher by ID
+        Task<bool> DeleteTeacherAsync(int teacherId);
     }
 }
